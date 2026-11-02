@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Breast Tumour Classifier | Predictive Analytics Mini Project</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <p class="kicker">CSE3141 Predictive Analytics &middot; Mini Project</p>
+    <h1>Breast tumour classifier</h1>
+    <p class="lead">Enter measurements of a cell nucleus from a fine-needle biopsy. The model estimates whether the tumour is benign or malignant, using logistic regression trained on the Breast Cancer Wisconsin (Diagnostic) dataset.</p>
+  </div>
+</header>
+
+<main class="wrap layout">
+  <section class="panel" aria-labelledby="inputs-h">
+    <div class="panel-head">
+      <h2 id="inputs-h">Measurements</h2>
+      <div class="actions">
+        <button type="button" class="btn ghost" id="fill-benign">Load benign example</button>
+        <button type="button" class="btn ghost" id="fill-malignant">Load malignant example</button>
+        <button type="button" class="btn ghost" id="clear">Clear</button>
+      </div>
+    </div>
+
+    <form id="form" novalidate>
+      {% for group, title, sub in [("mean", "Average values", "Mean of the measurement across all cells in the sample"),
+                                    ("worst", "Largest values", "Most extreme (largest) value found in the sample")] %}
+      <fieldset>
+        <legend>{{ title }}</legend>
+        <p class="sub">{{ sub }}</p>
+        <div class="grid">
+          {% for f in meta.features if f.group == group %}
+          <div class="field">
+            <label for="{{ loop.index }}-{{ group }}">{{ f.name.replace('mean ', '').replace('worst ', '').capitalize() }}</label>
+            <input type="text" inputmode="decimal" autocomplete="off"
+                   id="{{ loop.index }}-{{ group }}" name="{{ f.name }}"
+                   placeholder="e.g. {{ f.median }}">
+            <small class="hint">{{ f.hint }}. Typical range {{ f.min }} to {{ f.max }}.</small>
+            <small class="err" aria-live="polite"></small>
+          </div>
+          {% endfor %}
+        </div>
+      </fieldset>
+      {% endfor %}
+      <button type="submit" class="btn primary" id="submit">Predict</button>
+    </form>
+  </section>
+
+  <aside class="side">
+    <section class="panel result" id="result" aria-live="polite">
+      <h2>Result</h2>
+      <div id="empty" class="empty">
+        <p>No prediction yet. Fill in all ten measurements, or load an example, then press <strong>Predict</strong>.</p>
+      </div>
+      <div id="output" hidden>
+        <p class="verdict-label">Predicted class</p>
+        <p class="verdict" id="verdict"></p>
+        <div class="bar" role="img" aria-label="Probability split">
+          <div class="bar-fill" id="bar"></div>
+        </div>
+        <div class="probs">
+          <span>Benign <strong id="p-benign"></strong></span>
+          <span>Malignant <strong id="p-malignant"></strong></span>
+        </div>
+        <h3>What drove this result</h3>
+        <ul id="drivers" class="drivers"></ul>
+        <p class="small">These measurements are strongly correlated with each other, so single pushes can point in different directions. The prediction comes from all ten combined.</p>
+        <p class="note warn" id="range-note" hidden></p>
+      </div>
+      <p class="disclaimer">Educational project only. Not a medical device and not a diagnosis. Any real decision needs a qualified clinician.</p>
+    </section>
+
+    <section class="panel">
+      <h2>About the model</h2>
+      <dl class="stats">
+        <div><dt>Accuracy</dt><dd>{{ '%.1f' % (meta.metrics.accuracy * 100) }}%</dd></div>
+        <div><dt>Recall</dt><dd>{{ '%.1f' % (meta.metrics.recall * 100) }}%</dd></div>
+        <div><dt>F1 score</dt><dd>{{ '%.3f' % meta.metrics.f1 }}</dd></div>
+        <div><dt>AUC-ROC</dt><dd>{{ '%.3f' % meta.metrics.auc }}</dd></div>
+      </dl>
+      <p class="small">Measured on {{ meta.metrics.test_size }} patients the model never saw during training ({{ meta.metrics.train_size }} used for training). Regularisation strength C = {{ meta.metrics.C|int }}, chosen by grid search with 5-fold cross-validation. Malignant is predicted when its probability is 50% or higher.</p>
+    </section>
+  </aside>
+</main>
+
+<footer class="wrap foot">
+  <p>Dataset: Breast Cancer Wisconsin (Diagnostic), 569 samples, 30 features reduced to the 10 most informative with an ANOVA F-test. Built with scikit-learn and Flask.</p>
+</footer>
+
+<script>
+  window.META = {{ meta|tojson }};
+</script>
+<script src="/app.js"></script>
+</body>
+</html>

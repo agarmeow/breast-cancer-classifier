@@ -1,0 +1,7 @@
+flask
+numpy
+pandas
+scipy
+scikit-learn==1.9.1
+joblib
+gunicorn; sys_platform != "win32"

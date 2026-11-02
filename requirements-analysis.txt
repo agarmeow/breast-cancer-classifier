@@ -1,0 +1,4 @@
+# Extra libraries only needed for run_analysis.py (charts). Not needed by the web app.
+-r requirements.txt
+matplotlib
+seaborn

@@ -1,0 +1,120 @@
+{
+  "features": [
+    {
+      "name": "worst concave points",
+      "group": "worst",
+      "min": 0.0,
+      "max": 0.291,
+      "median": 0.0999,
+      "hint": "Number of inward dents in the outline"
+    },
+    {
+      "name": "worst perimeter",
+      "group": "worst",
+      "min": 50.41,
+      "max": 251.2,
+      "median": 97.66,
+      "hint": "Length of the boundary around the nucleus"
+    },
+    {
+      "name": "mean concave points",
+      "group": "mean",
+      "min": 0.0,
+      "max": 0.2012,
+      "median": 0.0335,
+      "hint": "Number of inward dents in the outline"
+    },
+    {
+      "name": "worst radius",
+      "group": "worst",
+      "min": 7.93,
+      "max": 36.04,
+      "median": 14.97,
+      "hint": "Average distance from the centre of the nucleus to its edge"
+    },
+    {
+      "name": "mean perimeter",
+      "group": "mean",
+      "min": 43.79,
+      "max": 188.5,
+      "median": 86.24,
+      "hint": "Length of the boundary around the nucleus"
+    },
+    {
+      "name": "worst area",
+      "group": "worst",
+      "min": 185.2,
+      "max": 4254.0,
+      "median": 686.5,
+      "hint": "Area covered by the nucleus"
+    },
+    {
+      "name": "mean radius",
+      "group": "mean",
+      "min": 6.981,
+      "max": 28.11,
+      "median": 13.37,
+      "hint": "Average distance from the centre of the nucleus to its edge"
+    },
+    {
+      "name": "mean area",
+      "group": "mean",
+      "min": 143.5,
+      "max": 2501.0,
+      "median": 551.1,
+      "hint": "Area covered by the nucleus"
+    },
+    {
+      "name": "mean concavity",
+      "group": "mean",
+      "min": 0.0,
+      "max": 0.4268,
+      "median": 0.0615,
+      "hint": "Severity of the inward dents in the outline"
+    },
+    {
+      "name": "worst concavity",
+      "group": "worst",
+      "min": 0.0,
+      "max": 1.252,
+      "median": 0.2267,
+      "hint": "Severity of the inward dents in the outline"
+    }
+  ],
+  "metrics": {
+    "accuracy": 0.9825,
+    "precision": 1.0,
+    "recall": 0.9524,
+    "f1": 0.9756,
+    "auc": 0.9987,
+    "test_size": 114,
+    "train_size": 455,
+    "C": 10.0
+  },
+  "samples": {
+    "benign": {
+      "worst concave points": 0.0649,
+      "worst perimeter": 88.84,
+      "mean concave points": 0.0234,
+      "worst radius": 13.89,
+      "mean perimeter": 82.5,
+      "worst area": 595.7,
+      "mean radius": 12.88,
+      "mean area": 514.3,
+      "mean concavity": 0.0619,
+      "worst concavity": 0.2439
+    },
+    "malignant": {
+      "worst concave points": 0.1466,
+      "worst perimeter": 139.8,
+      "mean concave points": 0.0906,
+      "worst radius": 21.44,
+      "mean perimeter": 127.7,
+      "worst area": 1421.0,
+      "mean radius": 19.59,
+      "mean area": 1191.0,
+      "mean concavity": 0.1655,
+      "worst concavity": 0.3977
+    }
+  }
+}
